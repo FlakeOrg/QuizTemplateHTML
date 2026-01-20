@@ -60,13 +60,14 @@
 <body>
   <div class="container">
     <div class="title" id="questionText">Question failed to get.</div>
-    <div class="subtitle" id="subtitle">This text will tell if you are right or wrong.</div>
+    <div class="subtitle" id="subtitle">This text will tell if you are right or wrong when you answer a question.</div>
     <div class="buttons">
       <button id="buttonOne">button 1</button>
       <button id="buttonTwo">button 2</button>
       <button id="buttonThree">button 3</button>
       <button id="buttonFour">button 4</button>
     </div>
+    <div class="subtitle">Questions made by Owen and Leo, website made by Danny.</div>
   </div>
 <script>
 const questionText = document.GetElementById("questionText");
@@ -77,7 +78,7 @@ const buttonThree = document.GetElementById("buttonThree");
 const buttonFour = document.GetElementById("buttonFour");
 
 const right = "Correct!"
-const wrong = "Wrong."
+const wrong = "Incorrect."
 
 const questions = [""]
 
