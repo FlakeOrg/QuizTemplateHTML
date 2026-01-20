@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>dark menu</title>
+  <title>Trying self government</title>
   <style>
     body {
       margin: 0;
@@ -23,6 +23,12 @@
       font-size: 1.5rem;
       margin-bottom: 24px;
       opacity: 0.9;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      margin-bottom: 24px;
+      opacity: 0.5;
     }
 
     .buttons {
@@ -53,13 +59,28 @@
 </head>
 <body>
   <div class="container">
-    <div class="title">choose your fate</div>
+    <div class="title" id="questionText">Question failed to get.</div>
+    <div class="subtitle" id="subtitle">This text will tell if you are right or wrong.</div>
     <div class="buttons">
-      <button>button 1</button>
-      <button>button 2</button>
-      <button>button 3</button>
-      <button>button 4</button>
+      <button id="buttonOne">button 1</button>
+      <button id="buttonTwo">button 2</button>
+      <button id="buttonThree">button 3</button>
+      <button id="buttonFour">button 4</button>
     </div>
   </div>
+<script>
+const questionText = document.GetElementById("questionText");
+
+const buttonOne = document.GetElementById("buttonOne");
+const buttonTwo = document.GetElementById("buttonTwo");
+const buttonThree = document.GetElementById("buttonThree");
+const buttonFour = document.GetElementById("buttonFour");
+
+const right = "Correct!"
+const wrong = "Wrong."
+
+const questions = [""]
+
+</script>
 </body>
 </html>
