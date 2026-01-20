@@ -67,20 +67,74 @@
       <button id="buttonThree">button 3</button>
       <button id="buttonFour">button 4</button>
     </div>
-    <div class="subtitle">Questions made by Owen and Leo, website made by Danny.</div>
+    <div class="subtitle">Questions made by Owen and Leo, website made by Danny, because I didn't want to make a boring kahoot like the rest of the class.</div>
   </div>
 <script>
-const questionText = document.GetElementById("questionText");
 
-const buttonOne = document.GetElementById("buttonOne");
-const buttonTwo = document.GetElementById("buttonTwo");
-const buttonThree = document.GetElementById("buttonThree");
-const buttonFour = document.GetElementById("buttonFour");
+// variables
 
-const right = "Correct!"
-const wrong = "Incorrect."
+const questionText = document.getElementById("questionText");
+const subtitle = document.getElementById("subtitle");
 
-const questions = [""]
+const buttonOne = document.getElementById("buttonOne");
+const buttonTwo = document.getElementById("buttonTwo");
+const buttonThree = document.getElementById("buttonThree");
+const buttonFour = document.getElementById("buttonFour");
+
+let currentQuestionIndex = 0;
+
+const rightText = "Correct!";
+const wrongText = "Incorrect.";
+
+// questions array
+const questions = [
+  {
+    question: "this is a test, just click 1 for now.",
+    answers: ["1", "2", "3", "4"],
+    correctIndex: 0
+  },
+  {
+    question: "which number is 3",
+    answers: ["1", "3", "5", "7"],
+    correctIndex: 1
+  },
+  {
+    question: "pick the even number",
+    answers: ["3", "5", "8", "9"],
+    correctIndex: 2
+  }
+];
+
+
+// add the question
+
+const question = questions[0];
+questionText.textContent = question.question;
+
+// change button text
+
+const buttons = [buttonOne, buttonTwo, buttonThree, buttonFour];
+
+buttons.forEach((button, index) => {
+  button.textContent = question.answers[index];
+});
+
+function checkAnswer(index) {
+  if (index === question.correctIndex) {
+    subtitle.textContent = rightText;
+    subtitle.style.opacity = 0.9;
+    subtitle.style.color = "#007308";
+  } else {
+    subtitle.textContent = wrongText;
+    subtitle.style.opacity = 0.9;
+    subtitle.style.color = "#9c0000";
+  }
+}
+
+buttonOne.onclick = () => checkAnswer(0);
+buttonTwo.onclick = () => checkAnswer(1);
+buttonThree.onclick = () => checkAnswer(2);
+buttonFour.onclick = () => checkAnswer(3);
 
 </script>
 </body>
