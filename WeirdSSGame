@@ -55,6 +55,12 @@
     button:active {
       transform: scale(0.97);
     }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: default;
+      transform: none;
+    }
   </style>
 </head>
 <body>
@@ -82,6 +88,7 @@ const buttonThree = document.getElementById("buttonThree");
 const buttonFour = document.getElementById("buttonFour");
 
 let currentQuestionIndex = 0;
+let nextQuestionTimeout = null;
 
 const rightText = "Correct!";
 const wrongText = "Incorrect.";
@@ -105,36 +112,78 @@ const questions = [
   }
 ];
 
-
-// add the question
-
-const question = questions[0];
-questionText.textContent = question.question;
-
-// change button text
-
 const buttons = [buttonOne, buttonTwo, buttonThree, buttonFour];
 
-buttons.forEach((button, index) => {
-  button.textContent = question.answers[index];
-});
+function loadQuestion(index) {
+  // clear any pending timeouts
+  if (nextQuestionTimeout) {
+    clearTimeout(nextQuestionTimeout);
+    nextQuestionTimeout = null;
+  }
+
+  // If index is out of range, show finished message
+  if (index < 0 || index >= questions.length) {
+    questionText.textContent = "Quiz finished.";
+    subtitle.textContent = "";
+    subtitle.style.opacity = 0.5;
+    subtitle.style.color = "#eaeaea";
+    buttons.forEach(btn => btn.disabled = true);
+    return;
+  }
+
+  const question = questions[index];
+  questionText.textContent = question.question;
+  subtitle.textContent = "This text will tell if you are right or wrong when you answer a question.";
+  subtitle.style.opacity = 0.5;
+  subtitle.style.color = "#eaeaea";
+
+  buttons.forEach((button, i) => {
+    button.textContent = question.answers[i] || "";
+    button.disabled = false;
+  });
+}
+
+function goToNextQuestion() {
+  currentQuestionIndex++;
+  loadQuestion(currentQuestionIndex);
+}
 
 function checkAnswer(index) {
+  const question = questions[currentQuestionIndex];
+  // If buttons are disabled, ignore clicks
+  if (buttons.some(btn => btn.disabled)) return;
+
   if (index === question.correctIndex) {
     subtitle.textContent = rightText;
     subtitle.style.opacity = 0.9;
     subtitle.style.color = "#007308";
+
+    // disable buttons to prevent extra clicks while waiting
+    buttons.forEach(btn => btn.disabled = true);
+
+    // advance to next question after 5 seconds (5000ms)
+    nextQuestionTimeout = setTimeout(() => {
+      goToNextQuestion();
+      nextQuestionTimeout = null;
+    }, 5000);
+
   } else {
     subtitle.textContent = wrongText;
     subtitle.style.opacity = 0.9;
     subtitle.style.color = "#9c0000";
+    // Optionally you could disable only the wrong button instead of all,
+    // or leave enabled to allow retry. Here we allow retry (do nothing else).
   }
 }
 
+// wire up click handlers
 buttonOne.onclick = () => checkAnswer(0);
 buttonTwo.onclick = () => checkAnswer(1);
 buttonThree.onclick = () => checkAnswer(2);
 buttonFour.onclick = () => checkAnswer(3);
+
+// initial load
+loadQuestion(currentQuestionIndex);
 
 </script>
 </body>
