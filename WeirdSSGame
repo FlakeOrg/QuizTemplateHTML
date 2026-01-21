@@ -34,11 +34,11 @@
     .buttons {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+      gap: 32px;
     }
 
     button {
-      padding: 14px 20px;
+      padding: 20px 20px;
       font-size: 1rem;
       border: none;
       border-radius: 8px;
@@ -123,11 +123,16 @@ function loadQuestion(index) {
 
   // If index is out of range, show finished message
   if (index < 0 || index >= questions.length) {
-    questionText.textContent = "Quiz finished.";
+    questionText.textContent = "Congrats; you finished the quiz.";
     subtitle.textContent = "";
     subtitle.style.opacity = 0.5;
     subtitle.style.color = "#eaeaea";
     buttons.forEach(btn => btn.disabled = true);
+    buttonOne.style.display = 'none'
+    buttonTwo.style.display = 'none'
+    buttonThree.style.display = 'none'
+    buttonFour.style.display = 'none'
+
     return;
   }
 
@@ -165,14 +170,12 @@ function checkAnswer(index) {
     nextQuestionTimeout = setTimeout(() => {
       goToNextQuestion();
       nextQuestionTimeout = null;
-    }, 5000);
+    }, 3000);
 
   } else {
     subtitle.textContent = wrongText;
     subtitle.style.opacity = 0.9;
     subtitle.style.color = "#9c0000";
-    // Optionally you could disable only the wrong button instead of all,
-    // or leave enabled to allow retry. Here we allow retry (do nothing else).
   }
 }
 
